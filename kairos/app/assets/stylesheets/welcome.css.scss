@@ -1,0 +1,38 @@
+header {
+  background-image: url('welcome.jpg');
+  background-repeat: none;
+  background-attachment: scroll;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  color: white;
+
+  text-align: center;
+
+  .container {
+    padding-top: 100px;
+    padding-bottom: 50px;
+  }
+  img {
+    display: block;
+    margin: 0 auto 20px;
+  }
+
+  .intro-text {
+    padding-top: 20%;
+    padding-bottom: 20%;
+    .brand {
+      display: block;
+      font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 4em;
+    }
+    .description {
+      font-size: 2.25em;
+      font-weight: 300;
+    }
+  }
+}

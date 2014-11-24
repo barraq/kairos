@@ -1,0 +1,14 @@
+en:
+  message:
+    auth:
+      sign_in: Sign in
+      sign_out: Sign out
+    form:
+      email_address: Email address
+      password: Password
+    user:
+      profile: Profile
+      settings: Settings
+  gender:
+    male: Male
+    female: Female

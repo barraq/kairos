@@ -1,0 +1,1 @@
+configatron.app_name = 'kairos'
