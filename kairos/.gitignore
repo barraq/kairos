@@ -38,5 +38,11 @@ db/schema.rb
 # Database configuration
 /config/database.yml
 
+# Kairos configuration
+/config/kairos.yml
+
+# Local configuration
+.envrc
+
 # Assets
 /vendor/components
