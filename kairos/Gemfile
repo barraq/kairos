@@ -55,6 +55,9 @@ gem 'jquery-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
+# Kairos settings
+gem 'settingslogic'
+
 group :development do
   # debugging
   gem 'pry',                     require:false
