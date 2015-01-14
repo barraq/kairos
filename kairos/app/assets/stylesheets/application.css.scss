@@ -23,3 +23,20 @@
 @import "bootstrap";
 
 @import "welcome";
+
+
+.main-nav {
+  @extend .pie-clearfix;
+  display: block !important;
+  clear: both;
+  margin-top: 0px;
+  margin-bottom: 20px;
+
+  &.navbar-fixed-top + .container {
+      padding-top: 70px;
+  }
+}
+
+h1, h2, h3 {
+  margin-top: 0px;
+}
