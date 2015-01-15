@@ -1,4 +1,4 @@
-%nav.navbar.navbar-default.navbar-fixed-top
+%nav.main-nav.navbar.navbar-default.navbar-fixed-top
   .container
     -# Brand and toggle get grouped for better mobile display
     .navbar-header.page-scroll
@@ -24,7 +24,7 @@
               %b.caret
             %ul.dropdown-menu{ role: 'menu', 'aria-labelledby'=>'user-settings'}
               %li
-                %a
+                = link_to profiles_path do
                   %i.fa.fa-user
                   = t('message.user.profile')
               %li
