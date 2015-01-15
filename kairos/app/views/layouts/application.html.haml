@@ -14,5 +14,5 @@
     = yield(:head)
 
   %body{ class: ["#{controller_name}-#{action_name}"] }
-    = render 'header'
+    = render 'layouts/header'
     = content_for?(:application_content) ? yield(:application_content) : yield
