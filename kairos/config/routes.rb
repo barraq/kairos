@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resource :profiles, only: [:show,] do
     member do
       put :reset_private_token
+      put :update_gitlab_private_token
     end
   end
 

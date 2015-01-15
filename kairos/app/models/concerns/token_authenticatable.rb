@@ -20,6 +20,11 @@ module TokenAuthenticatable
     save
   end
 
+  def update_gitlab_authentication_token!(token)
+    self.gitlab_authentication_token = token
+    save
+  end
+
   private
 
   def generate_authentication_token

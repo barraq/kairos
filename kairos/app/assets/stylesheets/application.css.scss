@@ -43,6 +43,11 @@
   @extend .alert-info;
 }
 
+.flash-alert {
+  @extend .alert;
+  @extend .alert-danger;
+}
+
 h1, h2, h3 {
   margin-top: 0px;
 }
