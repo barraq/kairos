@@ -1,0 +1,25 @@
+.container
+  = render "layouts/flash"
+  %h3
+    = t('message.user.profile')
+  %p
+    = t('profiles.description')
+  .profile
+    %fieldset.update-kairos-token
+      %legend
+        = t('oauth.private_token')
+      %div
+        = form_for @user, url: reset_private_token_profiles_path, method: :put, html: { class: 'form', role: 'form'} do |f|
+          .data
+            %p
+              = t('profiles.kairos.private_token.about')
+              %span.cred
+                = t('profiles.private_token.secret')
+            %p.cgray
+              - if current_user.private_token
+                = text_field_tag :token, current_user.private_token, class: "form-control"
+                %div
+                  = f.submit t('profiles.action.reset'), data: { confirm: t('profiles.prompt.are_you_sure') }, class: "btn btn-primary btn-build-token"
+              - else
+                %span= t('profiles.kairos.private_token.not_configured_yet')
+                = f.submit t('profiles.action.generate'), class: "btn success btn-build-token"

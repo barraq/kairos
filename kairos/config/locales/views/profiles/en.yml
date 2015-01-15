@@ -1,0 +1,16 @@
+en:
+  profiles:
+    description: "You can change your private tokens here."
+    action:
+      reset: "Reset"
+      generate: "Generate"
+    prompt:
+      are_you_sure: "Are you sure?"
+    message:
+      token_successfully_updated: "Token was successfully updated"
+    private_token:
+      secret: "Keep it secret!"
+    kairos:
+      private_token:
+        about: "Your private token is used to access application resources without authentication."
+        not_configured_yet: "You don`t have one yet. Click generate to fix it."

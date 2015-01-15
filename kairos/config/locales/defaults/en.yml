@@ -12,3 +12,5 @@ en:
   gender:
     male: Male
     female: Female
+  oauth:
+    private_token: Private Token

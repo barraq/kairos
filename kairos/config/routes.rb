@@ -12,6 +12,15 @@ Rails.application.routes.draw do
       :sign_out => 'logout'
   }
 
+  #
+  # Profile Area
+  #
+  resource :profiles, only: [:show,] do
+    member do
+      put :reset_private_token
+    end
+  end
+
   mount API::Root => '/'
 
   # Root
