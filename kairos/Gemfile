@@ -45,10 +45,11 @@ gem "kaminari", "~> 0.15.1"
 gem "bower"
 
 # styling
-gem 'sass-rails', '~> 4.0.3'
-gem 'compass-rails'
+gem 'sass-rails', '~> 5.0.1'
+gem 'compass-rails', '~> 2.0.0'
 gem 'bootstrap-sass'
 gem "font-awesome-rails"
+gem 'susy', '~> 2.2.2'
 
 # scripting
 gem 'uglifier', '>= 1.3.0'
