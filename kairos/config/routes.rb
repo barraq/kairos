@@ -13,6 +13,19 @@ Rails.application.routes.draw do
   }
 
   #
+  # User Area
+  #
+  resource :gitlab, controller: 'gitlab', only: [] do
+    member do
+      get :groups
+      get '/projects/:id', to: :project
+      get '/projects/', to: :projects
+      get '/projects/:id/issues', to: :issues_for_project
+      get :issues
+    end
+  end
+
+  #
   # Profile Area
   #
   resource :profiles, only: [:show,] do
