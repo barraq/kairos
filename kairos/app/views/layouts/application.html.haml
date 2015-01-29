@@ -9,10 +9,11 @@
     %link{rel:'apple-touch-icon', type:'image/png', href:'/touch-icon.png'}/
     = stylesheet_link_tag :application, media: 'all'
     = page_stylesheet_tag
-    = javascript_include_tag :application
     = csrf_meta_tag
     = yield(:head)
 
   %body{ class: ["#{controller_name}-#{action_name}"] }
     = render 'layouts/header'
     = content_for?(:application_content) ? yield(:application_content) : yield
+    = javascript_include_tag :application
+    = page_javascript_tag

@@ -35,6 +35,15 @@ Rails.application.routes.draw do
     end
   end
 
+  #
+  # Entries Area
+  #
+  resource :entries, only: [:show] do
+    member do
+      post :create
+    end
+  end
+
   mount API::Root => '/'
 
   # Root
