@@ -24,4 +24,10 @@ class ApplicationController < ActionController::Base
       sign_in user, store: false
     end
   end
+
+  def gitlab_access_configured!
+    if current_user.gitlab_token.nil?
+      redirect_to profiles_url, alert: "Please configure Gitlab private token"
+    end
+  end
 end
