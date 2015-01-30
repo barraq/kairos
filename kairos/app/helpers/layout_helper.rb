@@ -19,4 +19,16 @@ module LayoutHelper
       css_path.exist? ? stylesheet_link_tag("pages/#{controller}") : ''
     end
   end
+
+  def page_javascript_tag
+    controller = params[:controller]
+
+    @page_stylesheet_tags ||= {}
+    @page_stylesheet_tags[controller] ||= begin
+      css_path = Pathname.pwd.
+          join('app/assets/javascripts/pages').
+          join("#{controller}.js")
+      css_path.exist? ? stylesheet_link_tag("pages/#{controller}") : ''
+    end
+  end
 end

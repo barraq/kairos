@@ -12,23 +12,21 @@ module API
           requires :day, type: String, regexp: /^\d{4}-\d{2}-\d{2}$/
           requires :duration, type: Float
           requires :group, type: Integer
-          optional :activity, type: Integer
+          requires :activity, type: Integer
           optional :project, type: Integer
           optional :issue, type: Integer
         end
         post '/' do
           entry = Entry.new date: params[:day], user: current_user, duration: params[:duration], group: params[:group]
 
-          if params[:activity]
-            if Activity.where(id: params[:activity]).present?
-              entry.activity_id = params[:activity]
-            else
-              render_api_error!("Activity does not exists", 403);
-            end
+          if params[:activity] && Activity.where(id: params[:activity]).present?
+            entry.activity_id = params[:activity]
           else
-            entry.project = params[:project]
-            entry.issue = params[:issue]
+            render_api_error!("Activity does not exists", 403);
           end
+
+          entry.project = params[:project]
+          entry.issue = params[:issue]
 
           if entry.valid?
             entry.save()

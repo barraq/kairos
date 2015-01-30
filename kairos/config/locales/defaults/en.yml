@@ -9,6 +9,8 @@ en:
     user:
       profile: Profile
       settings: Settings
+  action:
+    entries: Entries
   gender:
     male: Male
     female: Female

@@ -12,6 +12,8 @@
  *
  *= require_self
  *= require font-awesome
+ *= require bootstrap-select/dist/css/bootstrap-select
+ *= require bootstrap-datepicker/css/datepicker3
  *= require_tree ./application
  *
  * @important: exclude _partial
@@ -19,14 +21,16 @@
  *= stub ./application/_variables
  */
 
-@import "application/variables";
-@import "bootstrap";
+@import 'application/variables';
 
-@import "welcome";
+@import 'susy';
+@import 'compass';
+@import 'bootstrap';
 
+@import 'welcome';
 
 .main-nav {
-  @extend .pie-clearfix;
+  @include pie-clearfix;
   display: block !important;
   clear: both;
   margin-top: 0px;
@@ -37,6 +41,11 @@
   }
 }
 
+h1, h2, h3 {
+  margin-top: 0px;
+}
+
+// Flash
 
 .flash-notice {
   @extend .alert;
@@ -48,6 +57,264 @@
   @extend .alert-danger;
 }
 
-h1, h2, h3 {
-  margin-top: 0px;
+// Form
+
+@mixin form-box {
+  position: relative;
+  -webkit-box-shadow: 0 1px 4px rgba(128,128,128,.4);
+  -moz-box-shadow: 0 1px 4px rgba(128,128,128,.4);
+  box-shadow: 0 1px 4px rgba(128,128,128,.4);
+}
+
+.new-entry {
+  margin-top: 48px;
+
+  // Reset form elements
+
+  input, input:focus, input:active, input:hover,
+  select, select:focus
+  .bootstrap-select, .selectpicker {
+    @include box-shadow(none !important);
+    background: transparent none !important;
+    border: none transparent !important;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-appearance: initial !important;
+  }
+
+  select, select:focus {
+    option {
+      color: black;
+    }
+    option:first-child {
+      display: none;
+    }
+  }
+
+  // Native select & Bootstrap-select style
+
+  select, select:focus
+  .bootstrap-select, .selectpicker {
+    height: 56px;
+  }
+
+  .selectpicker .filter-option,
+  select.empty, select.enhanced, select option:first-child {
+    color: #a9a9a9;
+    font-size: 18px;
+  }
+
+  .filter-option i {
+    color: green;
+    padding-right: 10px;
+  }
+
+  .enhanced.optional .filter-option {
+    font-size: 12px;
+  }
+
+  input {
+    font-size: 18px;
+    padding-top: 15px;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-bottom: 16px;
+  }
+
+  input[type='submit'] {
+    color: #fff;
+    background: #4bc800!important;
+    border: 0;
+    -webkit-box-shadow: inset 0 -2px 0 #45b900!important;
+    -moz-box-shadow: inset 0 -2px 0 #45b900!important;
+    box-shadow: inset 0 -2px 0 #45b900!important;
+  }
+
+  // Caret and icons
+  span.caret{
+    display:none;
+  }
+}
+
+$susy-entries-grid: layout(auto 12 .25 inside fluid isolate);
+
+.main-container {
+  @include layout($susy-entries-grid no-gutters);
+  @include container;
+  @include show-grid(overlay);
+
+  input[type='submit'] {
+    @extend .visible-md;
+    @extend .visible-sm;
+  }
+}
+
+input[type='submit'].main {
+  @extend .visible-xs;
+  @extend .visible-lg;
+}
+
+input[type='date']::-webkit-input-placeholder,
+input[type='date']::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+@media (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
+  .new-entry {
+    @include form-box;
+    margin-bottom: 48px;
+  }
+
+  input[type='submit'] {
+    width: 100%;
+  }
+
+  .main-container, .secondary-container {
+    @include prefix(10px);
+    @include span(full);
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  input[type='submit'] {
+    @include span(1 of 12);
+  }
+
+  .main-container {
+    @include prefix(10px);
+  }
+  .project-container, .issue-container {
+    @include span(50%);
+  }
+
+  .secondary-container {
+    margin-bottom: 48px;
+  }
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  .main-container {
+    @include form-box;
+    @include span(full);
+
+    .time-container input[name='date'] {
+      @include span(2.5 of 12);
+    }
+    .time-container input[name='duration'] {
+      @include span(1 of 12);
+    }
+    .activity-container {
+      @include span(4 of 12);
+    }
+    .group-container {
+      @include span(3.5 of 12);
+    }
+  }
+  .secondary-container {
+    @include span(full);
+  }
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+  .secondary-container {
+    margin-bottom: 24px;
+  }
+}
+
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+  .main-container {
+    @include form-box;
+    @include span(full);
+
+    .time-container input[name='date'] {
+      @include span(2 of 12);
+    }
+    .time-container input[name='duration'] {
+      @include span(1 of 12);
+    }
+    .activity-container {
+      @include span(5 of 12);
+    }
+    .group-container {
+      @include span(3 of 12);
+    }
+  }
+  .secondary-container {
+    @include span(full);
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .new-entry {
+    @include form-box;
+    height: 56px;
+    margin-bottom: 48px;
+  }
+
+  .main-container {
+    @include span(8 of 12);
+
+    @include nested(8) {
+      .time-container input[name='date'] {
+        @include span(1.6);
+      }
+      .time-container input[name='duration'] {
+        @include span(1);
+      }
+      .activity-container {
+        @include span(3);
+      }
+      .group-container {
+        @include span(2);
+      }
+    }
+  }
+  .secondary-container {
+    @include span(3 of 12);
+  }
+}
+
+// Listing
+
+.last-entries {
+  section header {
+    span.title {
+      line-height: 30px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+
+  section {
+    margin-bottom: 30px;
+  }
+
+  .time-entries-list-container {
+
+    ul, li {
+      list-style: none;
+    }
+
+    li {
+      @extend .row;
+
+      .definition {
+        @extend .col-xs-9;
+      }
+      .duration {
+        @extend .col-xs-3;
+        text-align: right;
+      }
+    }
+
+    li span {
+      line-height: 25px;
+      font-size: 16px;
+      font-weight: normal;
+
+      &.time {
+        font-weight: bold;
+      }
+    }
+  }
 }

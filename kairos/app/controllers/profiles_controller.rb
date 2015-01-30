@@ -2,7 +2,6 @@ class ProfilesController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
   before_filter :user
-  before_action :authenticate_user!
 
   def show
   end
