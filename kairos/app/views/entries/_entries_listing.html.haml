@@ -1,0 +1,20 @@
+%section
+  %header
+    .time-container
+      %span.title= title
+      %span.hour= "#{entries.sum(:duration)} h"
+  .time-entries-list-container
+    %ul
+    - entries.each do |entry|
+      %li
+        .definition
+          %span.activity= entry.activity.name
+          = " for "
+          %span.group{ 'data-group-id' => entry.group }= "group-#{entry.group}"
+          - if entry.project != 0
+            = " on "
+            %span.project{ 'data-project-id' => entry.project }= "project-#{entry.project}"
+          - if entry.issue != 0
+            %span.issue{ 'data-issue-id' => entry.issue }= "issue-#{entry.issue}"
+        .duration
+          %span.time= "#{entry.duration} h"

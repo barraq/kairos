@@ -1,0 +1,53 @@
+%nav.main-nav.navbar.navbar-default.navbar-fixed-top
+  .container
+    -# Brand and toggle get grouped for better mobile display
+    .navbar-header.page-scroll
+      %button.navbar-toggle{ type: 'button', data: { toggle: 'collapse', target: '' }}
+        %span.sr-only
+          Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to configatron.app_name, root_path(:anchor => 'page-top'), :class => 'navbar-brand'
+    -# Collect the nav links, forms, and other content for toggling
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-left
+        - if user_signed_in?
+          %li
+            = link_to entries_path do
+              %i.fa.fa-pencil-square-o
+                = t('action.entries')
+      %ul.nav.navbar-nav.navbar-right
+        %li.hidden
+          = link_to configatron.app_name, root_path, :class => 'navbar-brand'
+        - if user_signed_in?
+          %li.dropdown
+            %a.dropdown-toggle{ id: 'user-settings',
+              :data => { :target => '#', :toggle => 'dropdown' }}
+              %img.user-avatar{ src: ''}
+              %span.user-name
+                = current_user.email
+              %b.caret
+            %ul.dropdown-menu{ role: 'menu', 'aria-labelledby'=>'user-settings'}
+              %li
+                = link_to profiles_path do
+                  %i.fa.fa-user
+                  = t('message.user.profile')
+              %li
+                %a
+                  %i.fa.fa-gear
+                  = t('message.user.settings')
+              %li.divider
+              %li
+                = link_to destroy_user_session_path, :method => :delete do
+                  %i.fa.fa-sign-out
+                  = t('message.auth.sign_out')
+        - else
+          %li.page-scroll
+            %a{ href: '#about' }
+              About
+          %li.page-scroll
+            %a{ href: '#contact' }
+              Contact
+          %li
+            = link_to t('message.auth.sign_in'), new_user_session_path, :class => "navbar-link"

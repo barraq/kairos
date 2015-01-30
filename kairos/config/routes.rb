@@ -12,6 +12,38 @@ Rails.application.routes.draw do
       :sign_out => 'logout'
   }
 
+  #
+  # User Area
+  #
+  resource :gitlab, controller: 'gitlab', only: [] do
+    member do
+      get :groups
+      get '/projects/:id', to: :project
+      get '/projects/', to: :projects
+      get '/projects/:id/issues', to: :issues_for_project
+      get :issues
+    end
+  end
+
+  #
+  # Profile Area
+  #
+  resource :profiles, only: [:show,] do
+    member do
+      put :reset_private_token
+      put :update_gitlab_private_token
+    end
+  end
+
+  #
+  # Entries Area
+  #
+  resource :entries, only: [:show] do
+    member do
+      post :create
+    end
+  end
+
   mount API::Root => '/'
 
   # Root

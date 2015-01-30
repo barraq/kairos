@@ -10,7 +10,19 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+// Gem packages
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap
+//
+// Bower packages
+//= require bootstrap-datepicker/js/bootstrap-datepicker
+//= require bootstrap-select/dist/js/bootstrap-select
+//
+// Kairos
 //= require_tree .
+
+$(function() {
+    Flash.load();
+});
