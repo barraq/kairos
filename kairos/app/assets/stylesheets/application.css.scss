@@ -10,22 +10,16 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_self
- *= require font-awesome
- *= require bootstrap-select/dist/css/bootstrap-select
- *= require bootstrap-datepicker/css/datepicker3
- *= require_tree ./application
- *
- * @important: exclude _partial
- *
- *= stub ./application/_variables
  */
 
 @import 'application/variables';
 
 @import 'susy';
 @import 'compass';
+@import 'font-awesome';
 @import 'bootstrap';
+@import 'bootstrap-select/dist/css/bootstrap-select';
+@import 'bootstrap-datepicker/css/datepicker3';
 
 @import 'welcome';
 
