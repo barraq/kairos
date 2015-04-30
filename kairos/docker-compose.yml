@@ -1,0 +1,15 @@
+# Docker compose for development purpose. This, might
+# better not be used for deployment in production environment.
+
+db:
+  image: postgres:9.4
+  ports:
+    - "5432"
+  expose:
+    - "5432"
+server:
+  extends:
+    file: docker/development.yml
+    service: server
+  links:
+    - db
