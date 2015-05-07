@@ -38,10 +38,8 @@ Rails.application.routes.draw do
   #
   # Entries Area
   #
-  resource :entries, only: [:show] do
-    member do
-      post :create
-    end
+  resources :entries, only: [:create, :index, :destroy] do
+
   end
 
   mount API::Root => '/'

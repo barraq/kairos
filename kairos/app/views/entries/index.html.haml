@@ -1,0 +1,24 @@
+.container
+  = render 'layouts/flash'
+  %div.new-entry
+    = form_tag entries_path, class: 'form-horizontal' do
+      .main-container
+        .time-container
+          = date_field_tag :date, '', :placeholder => 'dd/mm/yyyy', :tabindex => '1'
+          = number_field_tag :duration, '', :placeholder => '0 h', :tabindex => '2'
+        .activity-container
+          = select_tag :activity, options_for_select(Activity.all.collect { |a| [a.name, a.id]}), :prompt => t('entries.placeholder.select_activity'), :tabindex => '2', class: 'enhanced'
+        .group-container
+          = select_tag :group, '', :prompt => t('entries.placeholder.select_group'), :tabindex => '3', class: 'enhanced'
+        = submit_tag 'Log'
+      .secondary-container
+        .project-container
+          = select_tag :project, '', :prompt => t('entries.placeholder.select_project'), :title => 'Select a projects', :tabindex => '4', class: 'enhanced optional'
+        .issue-container
+          = select_tag :issue, '', :prompt => t('entries.placeholder.select_issue'), :tabindex => '5', class: 'enhanced optional'
+      = submit_tag 'Log', class: 'main'
+  %div.last-entries
+    = render 'entries/entries_listing', title: t('entries.categories.today'), mode: :no_date, entries: @entries_for_today
+    = render 'entries/entries_listing', title: t('entries.categories.yesterday'), mode: :no_date, entries: @entries_for_yesterday
+    = render 'entries/entries_listing', title: t('entries.categories.this_week'), mode: :current_week, entries: @entries_for_week
+    = render 'entries/entries_listing', title: t('entries.categories.before_this_week'), mode: :current_date, entries: @entries

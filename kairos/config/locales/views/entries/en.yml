@@ -1,0 +1,14 @@
+en:
+  entries:
+    notices:
+      successfully_deleted: "Successfully destroyed entry."
+    placeholder:
+      select_activity: "Select activity"
+      select_group: "Select group"
+      select_project: "Select project"
+      select_issue: "Select project"
+    categories:
+      today: 'Today'
+      yesterday: 'Yesterday'
+      this_week: 'This week'
+      before_this_week: 'Before this week'

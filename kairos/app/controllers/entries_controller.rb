@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
   before_filter :user
   before_filter :gitlab_access_configured!
 
-  def show
+  def index
     @entries_for_today = @user.entries.where(:date => Date.today)
     @entries_for_yesterday = @user.entries.where(:date => Date.yesterday)
     @entries_for_week = @user.entries.where(:date => Date.today.beginning_of_week..Date.today)
@@ -28,6 +28,13 @@ class EntriesController < ApplicationController
     end
 
     redirect_to entries_path
+  end
+
+  def destroy
+    @entry = Entry.find(params[:id])
+    @entry.destroy
+
+    redirect_to entries_url, notice: t('notices.successfully_deleted')
   end
 
   private

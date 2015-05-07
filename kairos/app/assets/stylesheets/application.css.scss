@@ -283,30 +283,38 @@ input[type='date']::-webkit-calendar-picker-indicator {
     margin-bottom: 30px;
   }
 
-  .time-entries-list-container {
+  table {
+    width: 100%;
 
-    ul, li {
-      list-style: none;
+    tr:not(:last-child) {
+      border-bottom: 1px solid rgb(235, 235, 235);
     }
 
-    li {
-      @extend .row;
-
-      .definition {
-        @extend .col-xs-9;
-      }
-      .duration {
-        @extend .col-xs-3;
-        text-align: right;
-      }
+    td {
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
 
-    li span {
-      line-height: 25px;
-      font-size: 16px;
-      font-weight: normal;
+    td.action {
+      width: 30px;
+    }
+    td.details {
+      @include word-break('break-all');
 
-      &.time {
+      span.group {
+        background-color: green;
+      }
+      span.issue {
+        font-style: italic;
+        color: #808080;
+      }
+    }
+    td.date {
+      min-width: 100px;
+      text-align: right;
+
+      span.duration {
+        padding-left: 10px;
         font-weight: bold;
       }
     }

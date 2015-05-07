@@ -16,3 +16,5 @@ en:
     female: "Female"
   oauth:
     private_token: "Private Token"
+  prompt:
+    are_you_sure: "Are you sure ?"

@@ -3,18 +3,28 @@
     .time-container
       %span.title= title
       %span.hour= "#{entries.sum(:duration)} h"
-  .time-entries-list-container
-    %ul
+  %table
     - entries.each do |entry|
-      %li
-        .definition
+      %tr
+        %td.action
+          .dropdown
+            %button.btn.btn-default.btn-xs.dropdown-toggle{ id: "action-for-entry-#{entry.id}", 'data-toggle' => 'dropdown', :type => 'button' }
+              %span.fa.fa-cog
+            %ul.dropdown-menu.slidedown{ role: 'menu', 'aria-labelledby' => "action-for-entry-#{entry.id}" }
+              %li{ role: 'presentation' }
+                = link_to entry_path(entry), role: 'menuitem', method: :delete, data: { :confirm => t('prompt.are_you_sure') } do
+                  %span.fa.fa-trash
+                    Delete
+        %td.details
           %span.activity= entry.activity.name
-          = " for "
-          %span.group{ 'data-group-id' => entry.group }= "group-#{entry.group}"
+          %span.group.label{ 'data-group-id' => entry.group }= "group-#{entry.group}"
           - if entry.project != 0
-            = " on "
             %span.project{ 'data-project-id' => entry.project }= "project-#{entry.project}"
           - if entry.issue != 0
-            %span.issue{ 'data-issue-id' => entry.issue }= "issue-#{entry.issue}"
-        .duration
-          %span.time= "#{entry.duration} h"
+            %span.issue{ 'data-issue-id' => entry.issue }= "\##{entry.issue}"
+        %td.date
+          - if mode == :current_week
+            %span.time= t('date.day_names')[entry.date.wday]
+          - elsif mode != :no_date
+            %span.time= "#{entry.date.strftime('%B %d, %Y')}"
+          %span.duration= "#{entry.duration} h"
