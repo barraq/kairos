@@ -304,6 +304,9 @@ input[type='date']::-webkit-calendar-picker-indicator {
       span.group {
         background-color: green;
       }
+      span.project {
+        color: green;
+      }
       span.issue {
         font-style: italic;
         color: #808080;

@@ -19,7 +19,7 @@
           %span.activity= entry.activity.name
           %span.group.label{ 'data-group-id' => entry.group }= "group-#{entry.group}"
           - if entry.project != 0
-            %span.project{ 'data-project-id' => entry.project }= "project-#{entry.project}"
+            %span.project.label{ 'data-project-id' => entry.project }= "project-#{entry.project}"
           - if entry.issue != 0
             %span.issue{ 'data-issue-id' => entry.issue }= "\##{entry.issue}"
         %td.date
