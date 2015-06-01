@@ -5,10 +5,8 @@ class EntriesController < ApplicationController
   before_filter :gitlab_access_configured!
 
   def index
-    @entries_for_today = @user.entries.where(:date => Date.today)
-    @entries_for_yesterday = @user.entries.where(:date => Date.yesterday)
-    @entries_for_week = @user.entries.where(:date => Date.today.beginning_of_week..Date.today)
-    @entries = @user.entries.where('date < ?', Date.today.beginning_of_week)
+    @entry = Entry.new
+    load_last_entries
   end
 
   def create
@@ -16,22 +14,24 @@ class EntriesController < ApplicationController
       Date.strptime(entry_params[:date], '%d/%m/%Y').strftime("%Y-%m-%d")
     end
 
-    entry = Entry.new date: entry_params[:date],
+    @entry = Entry.new date: entry_params[:date],
                       user: current_user,
                       duration: entry_params[:duration].to_f,
                       activity_id: entry_params[:activity].to_i,
-                      group: entry_params[:group].to_i
+                      group: entry_params[:group].to_i,
+                      description: entry_params[:description].to_s
 
-    entry.project = params[:project].to_i if params[:project]
-    entry.issue = params[:issue].to_i if params[:issue]
+    @entry.project = params[:entry][:project].to_i if params[:entry][:project]
+    @entry.issue = params[:entry][:issue].to_i if params[:entry][:issue]
 
-    if entry.valid?
-      entry.save()
+    if @entry.valid?
+      @entry.save()
+      redirect_to entries_path
     else
-      flash[:notice] = entry.errors.full_messages.join(' ')
+      flash[:notice] = @entry.errors.full_messages.join(' ')
+      load_last_entries
+      render :index
     end
-
-    redirect_to entries_path
   end
 
   def destroy
@@ -43,11 +43,18 @@ class EntriesController < ApplicationController
 
   private
 
+  def load_last_entries
+    @entries_for_today = @user.entries.where(:date => Date.today)
+    @entries_for_yesterday = @user.entries.where(:date => Date.yesterday)
+    @entries_for_week = @user.entries.where(:date => Date.today.beginning_of_week..Date.today)
+    @entries = @user.entries.where('date < ?', Date.today.beginning_of_week)
+  end
+
   def user
     @user = current_user
   end
 
   def entry_params
-    params.permit(:date, :duration, :activity, :group, :project, :issue);
+    params.require('entry').permit(:date, :duration, :activity, :group, :description, :project, :issue);
   end
 end
