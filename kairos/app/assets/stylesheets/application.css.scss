@@ -62,12 +62,13 @@ h1, h2, h3 {
 
 .new-entry {
   margin-top: 48px;
+  @include pie-clearfix;
 
   // Reset form elements
 
   input, input:focus, input:active, input:hover,
-  select, select:focus
-  .bootstrap-select, .selectpicker {
+  select, select:focus,
+  .bootstrap-select button, .bootstrap-select button:focus {
     @include box-shadow(none !important);
     background: transparent none !important;
     border: none transparent !important;
@@ -87,12 +88,12 @@ h1, h2, h3 {
 
   // Native select & Bootstrap-select style
 
-  select, select:focus
-  .bootstrap-select, .selectpicker {
+  select, select:focus,
+  .bootstrap-select button {
     height: 56px;
   }
 
-  .selectpicker .filter-option,
+  .bootstrap-select .filter-option,
   select.empty, select.enhanced, select option:first-child {
     color: #a9a9a9;
     font-size: 18px;
@@ -124,6 +125,10 @@ h1, h2, h3 {
     box-shadow: inset 0 -2px 0 #45b900!important;
   }
 
+  button {
+    padding: 0px;
+  }
+
   // Caret and icons
   span.caret{
     display:none;
@@ -139,12 +144,12 @@ $susy-entries-grid: layout(auto 12 .25 inside fluid isolate);
 
   input[type='submit'] {
     @extend .visible-md;
-    @extend .visible-sm;
   }
 }
 
 input[type='submit'].main {
   @extend .visible-xs;
+  @extend .visible-sm;
   @extend .visible-lg;
 }
 
@@ -153,14 +158,14 @@ input[type='date']::-webkit-calendar-picker-indicator {
   display: none;
 }
 
-@media (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
+@media (max-width: $screen-sm-max) {
   .new-entry {
     @include form-box;
     margin-bottom: 48px;
   }
 
   input[type='submit'] {
-    width: 100%;
+    @include span(full);
   }
 
   .main-container, .secondary-container {
@@ -170,48 +175,21 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 @media (min-width: $screen-sm-min) {
-  input[type='submit'] {
-    @include span(1 of 12);
-  }
-
   .main-container {
     @include prefix(10px);
   }
+
+  .time-container input[name='entry[date]'],
+  .time-container input[name='entry[duration]'],
+  .activity-container, .group-container,
   .project-container, .issue-container {
     @include span(50%);
   }
-
-  .secondary-container {
-    margin-bottom: 48px;
-  }
 }
 
-@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-  .main-container {
-    @include form-box;
-    @include span(full);
-
-    .time-container input[name='date'] {
-      @include span(2.5 of 12);
-    }
-    .time-container input[name='duration'] {
-      @include span(1 of 12);
-    }
-    .activity-container {
-      @include span(4 of 12);
-    }
-    .group-container {
-      @include span(3.5 of 12);
-    }
-  }
-  .secondary-container {
-    @include span(full);
-  }
-}
-
-@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
-  .secondary-container {
-    margin-bottom: 24px;
+@media (min-width: $screen-md-min) {
+  input[type='submit'] {
+    @include span(1 of 12);
   }
 }
 
@@ -220,21 +198,27 @@ input[type='date']::-webkit-calendar-picker-indicator {
     @include form-box;
     @include span(full);
 
-    .time-container input[name='date'] {
-      @include span(2 of 12);
+    .time-container input[name='entry[date]'] {
+      @include span(1.6);
+      @include post(0.1);
     }
-    .time-container input[name='duration'] {
-      @include span(1 of 12);
+    .time-container input[name='entry[duration]'] {
+      @include span(0.7);
+      @include post(0.1);
     }
     .activity-container {
-      @include span(5 of 12);
+      @include span(2.2);
     }
     .group-container {
-      @include span(3 of 12);
+      @include span(2.2);
+    }
+    .description-container {
+      @include span(4.1);
     }
   }
   .secondary-container {
     @include span(full);
+    margin-bottom: 48px;
   }
 }
 
@@ -246,25 +230,30 @@ input[type='date']::-webkit-calendar-picker-indicator {
   }
 
   .main-container {
-    @include span(8 of 12);
+    @include span(9 of 12);
 
-    @include nested(8) {
-      .time-container input[name='date'] {
-        @include span(1.6);
+    @include nested(9) {
+      .time-container input[type='entry[date]'] {
+        @include span(1.3);
+        @include post(0.1);
       }
-      .time-container input[name='duration'] {
-        @include span(1);
+      .time-container input[name='entry[duration]'] {
+        @include span(0.6);
+        @include post(0.1);
       }
       .activity-container {
-        @include span(3);
+        @include span(1.8);
       }
       .group-container {
-        @include span(2);
+        @include span(1.8);
+      }
+      .description-container {
+        @include span(3.3);
       }
     }
   }
   .secondary-container {
-    @include span(3 of 12);
+    @include span(2 of 12);
   }
 }
 

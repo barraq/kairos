@@ -3,10 +3,11 @@ en:
     notices:
       successfully_deleted: "Successfully destroyed entry."
     placeholder:
-      select_activity: "Select activity"
-      select_group: "Select group"
-      select_project: "Select project"
-      select_issue: "Select project"
+      select_activity: "Activity"
+      select_group: "Group"
+      select_project: "Project"
+      select_issue: "Issue"
+      enter_description: "Description"
     categories:
       today: 'Today'
       yesterday: 'Yesterday'

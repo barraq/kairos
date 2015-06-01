@@ -13,7 +13,8 @@
         .group-container
           = f.select :group, {},
             { :include_blank => t('entries.placeholder.select_group') },
-            { :tabindex => '3', class: 'enhanced' }
+        .description-container
+          = f.text_field :description, :placeholder => t('entries.placeholder.enter_description'), :tabindex => '4'
         = submit_tag 'Log'
       .secondary-container
         .project-container

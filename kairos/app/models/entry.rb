@@ -8,6 +8,7 @@ class Entry < ActiveRecord::Base
 
   validates :duration, numericality: { greater_than: 0.0 }
   validates :group, numericality: { only_integer: true }
+  validates :description, length: { maximum: 144 }
   validates :project, numericality: { only_integer: true }, allow_nil: true
   validates :issue, numericality: { only_integer: true }, allow_nil: true
 end

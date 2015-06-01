@@ -22,6 +22,7 @@
             %span.project.label{ 'data-project-id' => entry.project }= "project-#{entry.project}"
           - if entry.issue != 0
             %span.issue{ 'data-issue-id' => entry.issue }= "\##{entry.issue}"
+          %span.description= entry.description
         %td.date
           - if mode == :current_week
             %span.time= t('date.day_names')[entry.date.wday]
