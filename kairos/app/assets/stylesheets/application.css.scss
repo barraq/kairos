@@ -67,7 +67,6 @@ h1, h2, h3 {
   // Reset form elements
 
   input, input:focus, input:active, input:hover,
-  select, select:focus,
   .bootstrap-select button, .bootstrap-select button:focus {
     @include box-shadow(none !important);
     background: transparent none !important;
@@ -77,61 +76,59 @@ h1, h2, h3 {
     -webkit-appearance: initial !important;
   }
 
-  select, select:focus {
-    option {
-      color: black;
-    }
-    option:first-child {
-      display: none;
-    }
+  button {
+    padding: 0px;
   }
 
   // Native select & Bootstrap-select style
 
-  select, select:focus,
-  .bootstrap-select button {
-    height: 56px;
+  .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    // This reset default bootstrap-select style
+    width: 100%;
   }
 
-  .bootstrap-select .filter-option,
-  select.empty, select.enhanced, select option:first-child {
-    color: #a9a9a9;
+  .bootstrap-select .filter-option {
     font-size: 18px;
+
+    i {
+      color: green;
+      padding-right: 10px;
+    }
   }
 
-  .filter-option i {
-    color: green;
-    padding-right: 10px;
-  }
-
-  .enhanced.optional .filter-option {
+  .bootstrap-select.optional .filter-option {
     font-size: 12px;
   }
 
-  input {
+  input,
+  .bootstrap-select button {
+    color: #a9a9a9;
     font-size: 18px;
-    padding-top: 15px;
+    margin-top: 13px;
     padding-right: 0px;
     padding-left: 0px;
-    padding-bottom: 16px;
+    margin-bottom: 13px;
+    line-height: 22px;
+    height: 22px;
   }
 
   input[type='submit'] {
     color: #fff;
     background: #4bc800!important;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    height: 48px;
+    margin: 0px;
     border: 0;
     -webkit-box-shadow: inset 0 -2px 0 #45b900!important;
     -moz-box-shadow: inset 0 -2px 0 #45b900!important;
     box-shadow: inset 0 -2px 0 #45b900!important;
-  }
 
-  button {
-    padding: 0px;
   }
 
   // Caret and icons
-  span.caret{
-    display:none;
+  span.caret {
+    display: none;
   }
 }
 
@@ -197,6 +194,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   .main-container {
     @include form-box;
     @include span(full);
+    height: 48px;
 
     .time-container input[name='entry[date]'] {
       @include span(1.6);
@@ -225,7 +223,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 @media (min-width: $screen-lg-min) {
   .new-entry {
     @include form-box;
-    height: 56px;
+    height: 48px;
     margin-bottom: 48px;
   }
 
@@ -233,7 +231,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
     @include span(9 of 12);
 
     @include nested(9) {
-      .time-container input[type='entry[date]'] {
+      .time-container input[name='entry[date]'] {
         @include span(1.3);
         @include post(0.1);
       }

@@ -13,6 +13,7 @@
         .group-container
           = f.select :group, {},
             { :include_blank => t('entries.placeholder.select_group') },
+            { :tabindex => '3', class: 'enhanced', 'data-selected' => @entry.group }
         .description-container
           = f.text_field :description, :placeholder => t('entries.placeholder.enter_description'), :tabindex => '4'
         = submit_tag 'Log'
@@ -20,11 +21,11 @@
         .project-container
           = f.select :project, {},
             { :include_blank => t('entries.placeholder.select_project') },
-            { :tabindex => '4', class: 'enhanced optional'  }
+            { :tabindex => '4', class: 'enhanced optional', 'data-selected' => @entry.project }
         .issue-container
           = f.select :issue, {},
             { :include_blank => t('entries.placeholder.select_issue') },
-            { :tabindex => '5', class: 'enhanced optional' }
+            { :tabindex => '5', class: 'enhanced optional', 'data-selected' => @entry.issue }
       = submit_tag 'Log', class: 'main'
   %div.last-entries
     = render 'entries/entries_listing', title: t('entries.categories.today'), mode: :no_date, entries: @entries_for_today

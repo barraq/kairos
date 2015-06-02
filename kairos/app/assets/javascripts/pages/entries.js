@@ -5,27 +5,32 @@ $(function() {
 
     // Request groups
     $.ajax({type: 'GET', url: '/gitlab/groups'}).done(function (data) {
+        var $selector = $('select#entry_group');
+        var selectedId = $selector.attr('data-selected');
+
+        // Keep track of groups
         groups = data;
 
+        // Update UI
         replace_group_id_with_name(groups);
-
-        $.each(data, function (i, d) {
-            $('#entry_group').append('<option value="' + d.id + '">' + d.name + '</option>');
+        $.each(groups, function (i, d) {
+            $selector.append('<option '+ (d.id == selectedId ? 'selected' : '') +' value="' + d.id + '">' + d.name + '</option>');
         });
-
-        $('select#entry_group.enhanced').selectpicker('refresh');
+        $selector.selectpicker('refresh');
     });
 
     // Request projects
     $.ajax({type: 'GET', url: '/gitlab/projects'}).done(function (data) {
-        var group_id;
+        var selectedGroupId = parseInt($('select#entry_group').attr('data-selected'));
+        var selectedProjectId = parseInt($('select#entry_project').attr('data-selected'));
 
+        // Keep track of projects
         projects = data;
 
+        // Update UI
         replace_project_id_with_name(projects);
-
-        if (group_id = $('select#entry_group option:selected').val() !== '') {
-            update_projects_selector_from(group_id, projects);
+        if (!isNaN(selectedGroupId)) {
+            update_projects_selector_from(selectedGroupId, projects, selectedProjectId);
         }
     });
 
@@ -93,14 +98,14 @@ function replace_project_id_with_name(projects) {
     });
 }
 
-function update_projects_selector_from(group_id, projects) {
+function update_projects_selector_from(group_id, projects, selectedId) {
     // Remove all option except the placeholder
     $('select#entry_project option[value!=""]').remove();
 
     // Create new options based on group_id and list of projects
     $.each(projects, function (i, project) {
         if (project.namespace.id === parseInt(group_id)) {
-            $('#entry_project').append('<option value="' + project.id + '">' + project.name + '</option>');
+            $('#entry_project').append('<option '+ (project.id == selectedId ? 'selected' : '') +' value="' + project.id + '">' + project.name + '</option>');
         }
     });
 
