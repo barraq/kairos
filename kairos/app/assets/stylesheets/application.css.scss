@@ -10,22 +10,16 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_self
- *= require font-awesome
- *= require bootstrap-select/dist/css/bootstrap-select
- *= require bootstrap-datepicker/css/datepicker3
- *= require_tree ./application
- *
- * @important: exclude _partial
- *
- *= stub ./application/_variables
  */
 
 @import 'application/variables';
 
 @import 'susy';
 @import 'compass';
+@import 'font-awesome';
 @import 'bootstrap';
+@import 'bootstrap-select/dist/css/bootstrap-select';
+@import 'bootstrap-datepicker/css/datepicker3';
 
 @import 'welcome';
 
@@ -68,12 +62,12 @@ h1, h2, h3 {
 
 .new-entry {
   margin-top: 48px;
+  @include pie-clearfix;
 
   // Reset form elements
 
   input, input:focus, input:active, input:hover,
-  select, select:focus
-  .bootstrap-select, .selectpicker {
+  .bootstrap-select button, .bootstrap-select button:focus {
     @include box-shadow(none !important);
     background: transparent none !important;
     border: none transparent !important;
@@ -82,57 +76,59 @@ h1, h2, h3 {
     -webkit-appearance: initial !important;
   }
 
-  select, select:focus {
-    option {
-      color: black;
-    }
-    option:first-child {
-      display: none;
-    }
+  button {
+    padding: 0px;
   }
 
   // Native select & Bootstrap-select style
 
-  select, select:focus
-  .bootstrap-select, .selectpicker {
-    height: 56px;
+  .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    // This reset default bootstrap-select style
+    width: 100%;
   }
 
-  .selectpicker .filter-option,
-  select.empty, select.enhanced, select option:first-child {
-    color: #a9a9a9;
+  .bootstrap-select .filter-option {
     font-size: 18px;
+
+    i {
+      color: green;
+      padding-right: 10px;
+    }
   }
 
-  .filter-option i {
-    color: green;
-    padding-right: 10px;
-  }
-
-  .enhanced.optional .filter-option {
+  .bootstrap-select.optional .filter-option {
     font-size: 12px;
   }
 
-  input {
+  input,
+  .bootstrap-select button {
+    color: #a9a9a9;
     font-size: 18px;
-    padding-top: 15px;
+    margin-top: 13px;
     padding-right: 0px;
     padding-left: 0px;
-    padding-bottom: 16px;
+    margin-bottom: 13px;
+    line-height: 22px;
+    height: 22px;
   }
 
   input[type='submit'] {
     color: #fff;
     background: #4bc800!important;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    height: 48px;
+    margin: 0px;
     border: 0;
     -webkit-box-shadow: inset 0 -2px 0 #45b900!important;
     -moz-box-shadow: inset 0 -2px 0 #45b900!important;
     box-shadow: inset 0 -2px 0 #45b900!important;
+
   }
 
   // Caret and icons
-  span.caret{
-    display:none;
+  span.caret {
+    display: none;
   }
 }
 
@@ -145,12 +141,12 @@ $susy-entries-grid: layout(auto 12 .25 inside fluid isolate);
 
   input[type='submit'] {
     @extend .visible-md;
-    @extend .visible-sm;
   }
 }
 
 input[type='submit'].main {
   @extend .visible-xs;
+  @extend .visible-sm;
   @extend .visible-lg;
 }
 
@@ -159,14 +155,14 @@ input[type='date']::-webkit-calendar-picker-indicator {
   display: none;
 }
 
-@media (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
+@media (max-width: $screen-sm-max) {
   .new-entry {
     @include form-box;
     margin-bottom: 48px;
   }
 
   input[type='submit'] {
-    width: 100%;
+    @include span(full);
   }
 
   .main-container, .secondary-container {
@@ -176,48 +172,21 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 @media (min-width: $screen-sm-min) {
-  input[type='submit'] {
-    @include span(1 of 12);
-  }
-
   .main-container {
     @include prefix(10px);
   }
+
+  .time-container input[name='entry[date]'],
+  .time-container input[name='entry[duration]'],
+  .activity-container, .group-container,
   .project-container, .issue-container {
     @include span(50%);
   }
-
-  .secondary-container {
-    margin-bottom: 48px;
-  }
 }
 
-@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-  .main-container {
-    @include form-box;
-    @include span(full);
-
-    .time-container input[name='date'] {
-      @include span(2.5 of 12);
-    }
-    .time-container input[name='duration'] {
-      @include span(1 of 12);
-    }
-    .activity-container {
-      @include span(4 of 12);
-    }
-    .group-container {
-      @include span(3.5 of 12);
-    }
-  }
-  .secondary-container {
-    @include span(full);
-  }
-}
-
-@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
-  .secondary-container {
-    margin-bottom: 24px;
+@media (min-width: $screen-md-min) {
+  input[type='submit'] {
+    @include span(1 of 12);
   }
 }
 
@@ -225,52 +194,64 @@ input[type='date']::-webkit-calendar-picker-indicator {
   .main-container {
     @include form-box;
     @include span(full);
+    height: 48px;
 
-    .time-container input[name='date'] {
-      @include span(2 of 12);
+    .time-container input[name='entry[date]'] {
+      @include span(1.6);
+      @include post(0.1);
     }
-    .time-container input[name='duration'] {
-      @include span(1 of 12);
+    .time-container input[name='entry[duration]'] {
+      @include span(0.7);
+      @include post(0.1);
     }
     .activity-container {
-      @include span(5 of 12);
+      @include span(2.2);
     }
     .group-container {
-      @include span(3 of 12);
+      @include span(2.2);
+    }
+    .description-container {
+      @include span(4.1);
     }
   }
   .secondary-container {
     @include span(full);
+    margin-bottom: 48px;
   }
 }
 
 @media (min-width: $screen-lg-min) {
   .new-entry {
     @include form-box;
-    height: 56px;
+    height: 48px;
     margin-bottom: 48px;
   }
 
   .main-container {
-    @include span(8 of 12);
+    @include span(9 of 12);
 
-    @include nested(8) {
-      .time-container input[name='date'] {
-        @include span(1.6);
+    @include nested(9) {
+      .time-container input[name='entry[date]'] {
+        @include span(1.3);
+        @include post(0.1);
       }
-      .time-container input[name='duration'] {
-        @include span(1);
+      .time-container input[name='entry[duration]'] {
+        @include span(0.6);
+        @include post(0.1);
       }
       .activity-container {
-        @include span(3);
+        @include span(1.8);
       }
       .group-container {
-        @include span(2);
+        @include span(1.8);
+      }
+      .description-container {
+        @include span(3.3);
       }
     }
   }
   .secondary-container {
-    @include span(3 of 12);
+    @include span(2 of 12);
   }
 }
 
@@ -289,30 +270,41 @@ input[type='date']::-webkit-calendar-picker-indicator {
     margin-bottom: 30px;
   }
 
-  .time-entries-list-container {
+  table {
+    width: 100%;
 
-    ul, li {
-      list-style: none;
+    tr:not(:last-child) {
+      border-bottom: 1px solid rgb(235, 235, 235);
     }
 
-    li {
-      @extend .row;
-
-      .definition {
-        @extend .col-xs-9;
-      }
-      .duration {
-        @extend .col-xs-3;
-        text-align: right;
-      }
+    td {
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
 
-    li span {
-      line-height: 25px;
-      font-size: 16px;
-      font-weight: normal;
+    td.action {
+      width: 30px;
+    }
+    td.details {
+      @include word-break('break-all');
 
-      &.time {
+      span.group {
+        background-color: green;
+      }
+      span.project {
+        color: green;
+      }
+      span.issue {
+        font-style: italic;
+        color: #808080;
+      }
+    }
+    td.date {
+      min-width: 100px;
+      text-align: right;
+
+      span.duration {
+        padding-left: 10px;
         font-weight: bold;
       }
     }

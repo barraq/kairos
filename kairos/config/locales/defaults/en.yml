@@ -1,18 +1,20 @@
 en:
   message:
     auth:
-      sign_in: Sign in
-      sign_out: Sign out
+      sign_in: "Sign in"
+      sign_out: "Sign out"
     form:
-      email_address: Email address
-      password: Password
+      email_address: "Email address"
+      password: "Password"
     user:
-      profile: Profile
-      settings: Settings
+      profile: "Profile"
+      settings: "Settings"
   action:
-    entries: Entries
+    entries: "Entries"
   gender:
-    male: Male
-    female: Female
+    male: "Male"
+    female: "Female"
   oauth:
-    private_token: Private Token
+    private_token: "Private Token"
+  prompt:
+    are_you_sure: "Are you sure ?"

@@ -1,0 +1,34 @@
+.container
+  = render 'layouts/flash'
+  %div.new-entry
+    = form_for @entry, url: entries_path, class: 'form-horizontal' do |f|
+      .main-container
+        .time-container
+          = f.date_field :date, :value => (@entry.date.strftime('%d/%m/%Y') unless @entry.date.nil?), :placeholder => 'dd/mm/yyyy', :tabindex => '1'
+          = f.number_field :duration, :placeholder => '0 h', :tabindex => '2', step: 0.5
+        .activity-container
+          = f.select :activity, options_for_select(Activity.all.collect { |a| [a.name, a.id]}, :selected => (@entry.activity.id unless @entry.activity.nil?) ),
+            { :include_blank => t('entries.placeholder.select_activity') },
+            { :tabindex => '2', class: 'enhanced' }
+        .group-container
+          = f.select :group, {},
+            { :include_blank => t('entries.placeholder.select_group') },
+            { :tabindex => '3', class: 'enhanced', 'data-selected' => @entry.group }
+        .description-container
+          = f.text_field :description, :placeholder => t('entries.placeholder.enter_description'), :tabindex => '4'
+        = submit_tag 'Log'
+      .secondary-container
+        .project-container
+          = f.select :project, {},
+            { :include_blank => t('entries.placeholder.select_project') },
+            { :tabindex => '4', class: 'enhanced optional', 'data-selected' => @entry.project }
+        .issue-container
+          = f.select :issue, {},
+            { :include_blank => t('entries.placeholder.select_issue') },
+            { :tabindex => '5', class: 'enhanced optional', 'data-selected' => @entry.issue }
+      = submit_tag 'Log', class: 'main'
+  %div.last-entries
+    = render 'entries/entries_listing', title: t('entries.categories.today'), mode: :no_date, entries: @entries_for_today
+    = render 'entries/entries_listing', title: t('entries.categories.yesterday'), mode: :no_date, entries: @entries_for_yesterday
+    = render 'entries/entries_listing', title: t('entries.categories.this_week'), mode: :current_week, entries: @entries_for_week
+    = render 'entries/entries_listing', title: t('entries.categories.before_this_week'), mode: :current_date, entries: @entries
