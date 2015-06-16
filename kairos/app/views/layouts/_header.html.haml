@@ -39,6 +39,11 @@
                   = t('message.user.settings')
               %li.divider
               %li
+                = link_to import_entries_path do
+                  %i.fa.fa-upload
+                  = t('message.user.import')
+              %li.divider
+              %li
                 = link_to destroy_user_session_path, :method => :delete do
                   %i.fa.fa-sign-out
                   = t('message.auth.sign_out')

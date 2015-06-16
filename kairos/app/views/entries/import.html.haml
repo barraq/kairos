@@ -1,0 +1,12 @@
+.container
+  = render 'layouts/flash'
+  %h3
+    = t('message.user.import')
+  %p
+    = t('entries.import.description')
+  %div.import-entries
+    = form_tag import_entries_path, multipart: true do
+      .form-group
+        %label.sr-only{:for => 'file'}= t('entries.placeholder.select_file')
+        = file_field_tag 'file', :accept => 'text/csv'
+      = submit_tag 'Import', class: 'btn btn-default'
