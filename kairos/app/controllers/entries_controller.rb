@@ -10,10 +10,6 @@ class EntriesController < ApplicationController
   end
 
   def create
-    entry_params[:date] ||= begin
-      Date.strptime(entry_params[:date], '%d/%m/%Y').strftime("%Y-%m-%d")
-    end
-
     @entry = Entry.new date: entry_params[:date],
                       user: current_user,
                       duration: entry_params[:duration].to_f,

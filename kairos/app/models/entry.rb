@@ -11,4 +11,17 @@ class Entry < ActiveRecord::Base
   validates :description, length: { maximum: 144 }
   validates :project, numericality: { only_integer: true }, allow_nil: true
   validates :issue, numericality: { only_integer: true }, allow_nil: true
+
+  def date=(value)
+    begin
+      if /\d{1,2}\/\d{1,2}\/\d{4}/.match(value)
+        write_attribute :date, Date.strptime(value, '%d/%m/%Y').strftime("%Y-%m-%d")
+      else
+        write_attribute :date, Date.strptime(value, '%Y-%m-%d').strftime("%Y-%m-%d")
+      end
+    rescue
+      errors[:date] = 'date is invalid'
+    end
+  end
+
 end
