@@ -2,14 +2,23 @@ en:
   entries:
     notices:
       successfully_deleted: "Successfully destroyed entry."
+      successfully_imported: "Successfully imported entries."
+    alerts:
+      bad_file: "Bad file."
+      many_errors_during_import:
+        one: "%{count} CSV line ignored during import."
+        other: "%{count} CSV lines ignored during import."
     placeholder:
       select_activity: "Activity"
       select_group: "Group"
       select_project: "Project"
       select_issue: "Issue"
       enter_description: "Description"
+      select_file: "Select file to import"
     categories:
-      today: 'Today'
+      today: "Today"
       yesterday: 'Yesterday'
       this_week: 'This week'
       before_this_week: 'Before this week'
+    import:
+      description: "You can import existing time entries here."

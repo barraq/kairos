@@ -9,6 +9,7 @@ en:
     user:
       profile: "Profile"
       settings: "Settings"
+      import: "Import"
   action:
     entries: "Entries"
   gender:

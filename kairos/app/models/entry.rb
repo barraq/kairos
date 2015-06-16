@@ -1,3 +1,5 @@
+require 'csv'
+
 class Entry < ActiveRecord::Base
   extend ActiveSupport::Concern
 
@@ -24,4 +26,33 @@ class Entry < ActiveRecord::Base
     end
   end
 
+  # Import uploaded `file` data into `user` entries.
+  def self.import(file, user)
+    return if file.nil?
+
+    processed = {
+        skipped: 0,
+        imported: 0
+    }
+
+    CSV.foreach(file.path, headers: true, header_converters: :symbol) do |row|
+      begin
+        params = row.to_hash
+        Entry.create! date: params[:date],
+                      user: user,
+                      duration: params[:duration].to_f,
+                      activity: Activity.find_by(name: params[:activity].to_s),
+                      group: params[:group].to_i,
+                      project: params[:project].to_i,
+                      issue: params[:issue].to_i,
+                      description: params[:description].to_s
+      rescue
+        processed[:skipped] += 1
+      else
+        processed[:imported] += 1
+      end
+    end
+
+    processed
+  end
 end

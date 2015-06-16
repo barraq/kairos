@@ -39,7 +39,10 @@ Rails.application.routes.draw do
   # Entries Area
   #
   resources :entries, only: [:create, :index, :destroy] do
-
+    collection do
+      get :import, to: :import_index
+      post :import, to: :import_data
+    end
   end
 
   mount API::Root => '/'

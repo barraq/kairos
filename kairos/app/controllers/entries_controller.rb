@@ -30,6 +30,24 @@ class EntriesController < ApplicationController
     end
   end
 
+  def import_index
+    render :import
+  end
+
+  def import_data
+    processed = Entry.import(params[:file], current_user)
+
+    puts processed
+
+    if processed.nil?
+      redirect_to entries_url, :alert => t('entries.alerts.bad_file')
+    elsif processed[:skipped] > 0
+      redirect_to entries_url, :alert => t('entries.alerts.many_errors_during_import', count: processed[:skipped])
+    else
+      redirect_to entries_url, :notice => t('notices.successfully_imported')
+    end
+  end
+
   def destroy
     @entry = Entry.find(params[:id])
     @entry.destroy
