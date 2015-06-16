@@ -28,7 +28,7 @@ class EntriesController < ApplicationController
       @entry.save()
       redirect_to entries_path
     else
-      flash[:notice] = @entry.errors.full_messages.join(' ')
+      flash[:alert] = @entry.errors.full_messages.join(' ')
       load_last_entries
       render :index
     end
