@@ -16,6 +16,9 @@ RUN apt-get update -qq \
                           nodejs npm \
                           postgresql-client-$PG_MAJOR=$PG_VERSION
 
+# Install utilities
+RUN npm install -g bower
+
 # Copy Gemfile and install bundle
 WORKDIR /tmp
 COPY Gemfile Gemfile
