@@ -12,16 +12,20 @@
 //
 // Gem packages
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap
+//
+// Kairos
+//= require_directory .
+//= require_self
 //
 // Bower packages
 //= require bootstrap-datepicker/js/bootstrap-datepicker
 //= require bootstrap-select/dist/js/bootstrap-select
 //
-// Kairos
-//= require_tree .
+// Turbolinks (must be placed at the end)
+//= require turbolinks
 
 $(function() {
     Flash.load();
