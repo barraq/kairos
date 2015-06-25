@@ -14,10 +14,10 @@ RUN apt-get update -qq \
     && curl -sL https://deb.nodesource.com/setup | bash - \
     && apt-get install -y build-essential apt-utils libpq-dev \
                           nodejs npm \
-                          postgresql-client-$PG_MAJOR=$PG_VERSION
+                          postgresql-client-$PG_MAJOR
 
 # Install utilities
-RUN npm install -g bower
+RUN npm install -dd -g bower
 
 # Copy Gemfile and install bundle
 WORKDIR /tmp
